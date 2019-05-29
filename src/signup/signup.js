@@ -12,6 +12,16 @@ import styles from "./styles";
 const firebase = require("firebase");
 
 class SignupCompoent extends React.Component {
+  constructor() {
+    super();
+    this.state = {
+      email: null,
+      password: null,
+      passwordConfirmation: null,
+      signupError: ""
+    };
+  }
+
   render() {
     const { classes } = this.props;
 
@@ -50,7 +60,7 @@ class SignupCompoent extends React.Component {
                 Confirm Your Password
               </InputLabel>
               <Input
-                tpye="password"
+                type="password"
                 onChange={e => this.userTyping("passwordConfirmation", e)}
                 id="signup-password-confirmation-input"
               />
@@ -65,6 +75,15 @@ class SignupCompoent extends React.Component {
               Submit
             </Button>
           </form>
+          {this.state.signupError ? (
+            <Typography
+              className={classes.errorText}
+              component="h5"
+              variant="h6"
+            >
+              {this.state.signupError}
+            </Typography>
+          ) : null}
           <Typography
             component="h5"
             variant="h6"
@@ -80,12 +99,33 @@ class SignupCompoent extends React.Component {
     );
   }
 
+  formIsValid = () => this.state.password === this.state.passwordConfirmation;
+
   userTyping = (type, e) => {
-    console.log(type, e);
+    switch (type) {
+      case "email":
+        this.setState({ email: e.target.value });
+        break;
+
+      case "password":
+        this.setState({ password: e.target.value });
+        break;
+
+      case "passwordConfirmation":
+        this.setState({ passwordConfirmation: e.target.value });
+        break;
+
+      default:
+        break;
+    }
   };
 
   submitSignup = e => {
-    console.log("SUBMITTING");
+    e.preventDefault();
+    if (!this.formIsValid()) {
+      this.setState({ signupError: "Passwords do not match!" });
+      return;
+    }
   };
 }
 
