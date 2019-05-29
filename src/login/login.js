@@ -52,6 +52,16 @@ class LoginComponent extends React.Component {
               Log In
             </Button>
           </form>
+          <Typography
+            component="h5"
+            variant="h6"
+            className={classes.noAccountHeader}
+          >
+            Don't Have An Account?
+          </Typography>
+          <Link className={classes.signUpLink} to="/signup">
+            Sign Up!
+          </Link>
         </Paper>
       </main>
     );
