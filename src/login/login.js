@@ -10,7 +10,18 @@ import Button from "@material-ui/core/Button";
 import Typography from "@material-ui/core/Typography";
 import styles from "./styles";
 
+const firebase = require("firebase");
+
 class LoginComponent extends React.Component {
+  constructor() {
+    super();
+    this.state = {
+      email: null,
+      password: null,
+      loginError: ""
+    };
+  }
+
   render() {
     const { classes } = this.props;
     return (
@@ -52,6 +63,15 @@ class LoginComponent extends React.Component {
               Log In
             </Button>
           </form>
+          {this.state.loginError ? (
+            <Typography
+              component="h5"
+              variant="h6"
+              className={classes.errorText}
+            >
+              Incorrect Login Information
+            </Typography>
+          ) : null}
           <Typography
             component="h5"
             variant="h6"
@@ -67,11 +87,35 @@ class LoginComponent extends React.Component {
     );
   }
   userTyping = (type, e) => {
-    console.log(type, e);
+    switch (type) {
+      case "email":
+        this.setState({ email: e.target.value });
+        break;
+
+      case "password":
+        this.setState({ password: e.target.value });
+        break;
+
+      default:
+        break;
+    }
   };
 
   submitLogin = e => {
-    console.log("Submitting!");
+    e.preventDefault();
+
+    firebase
+      .auth()
+      .signInWithEmailAndPassword(this.state.email, this.state.password)
+      .then(
+        () => {
+          this.props.history.push("/dashboard");
+        },
+        err => {
+          this.setState({ loginError: "Server Error" });
+          console.log(err);
+        }
+      );
   };
 }
 
