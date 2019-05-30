@@ -1,6 +1,8 @@
 import React from "react";
 import ChatListComponent from "../chatlist/chatList";
 
+const firebase = require("firebase");
+
 class DashboardCompoent extends React.Component {
   constructor() {
     super();
@@ -15,7 +17,6 @@ class DashboardCompoent extends React.Component {
   render() {
     return (
       <div>
-        <div>Hello World From Dashboard</div>
         <ChatListComponent
           history={this.props.history}
           newChatBtnFn={this.newChatBtnClicked}
@@ -28,12 +29,33 @@ class DashboardCompoent extends React.Component {
     );
   }
 
-  selectChat = () => {
-    console.log("Selected a chat");
+  selectChat = chatIndex => {
+    console.log("Selected a chat", chatIndex);
   };
 
   newChatBtnClicked = () => {
-    console.log("New Chat button Clicked!");
+    this.setState({ newChatFormVisible: true, selectedChat: null });
+  };
+
+  componentDidMount = () => {
+    firebase.auth().onAuthStateChanged(async _usr => {
+      if (!_usr) {
+        this.props.history.push("/login");
+      } else {
+        await firebase
+          .firestore()
+          .collection("chats")
+          .where("users", "array-contains", _usr.email)
+          .onSnapshot(async res => {
+            const chats = res.docs.map(_doc => _doc.data());
+            await this.setState({
+              email: _usr.email,
+              chats: chats
+            });
+            console.log(this.state);
+          });
+      }
+    });
   };
 }
 

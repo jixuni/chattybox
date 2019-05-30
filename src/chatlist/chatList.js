@@ -14,8 +14,88 @@ import NotificationImportant from "@material-ui/icons/NotificationImportant";
 
 class ChatListComponent extends React.Component {
   render() {
-    return <div>Hello from chat list.</div>;
+    const { classes } = this.props;
+
+    if (this.props.chats.length > 0) {
+      return (
+        <main className={classes.root}>
+          <Button
+            variant="contained"
+            fullWidth
+            color="primary"
+            className={classes.newChatBtn}
+            onClick={this.newChat}
+          >
+            New Message
+          </Button>
+          <List>
+            {this.props.chats.map((_chat, _index) => {
+              return (
+                <div key={_index}>
+                  <ListItem
+                    onClick={() => this.selectChat(_index)}
+                    className={classes.listItem}
+                    selected={this.props.selectedChatIndex === _index}
+                    alignItems="flex-start"
+                  >
+                    <ListItemAvatar>
+                      <Avatar alt="Remy Sharp">
+                        {
+                          _chat.users
+                            .filter(_user => _user !== this.props.userEmail)[0]
+                            .split("")[0]
+                        }
+                      </Avatar>
+                    </ListItemAvatar>
+                    <ListItemText
+                      primary={
+                        _chat.users.filter(
+                          _user => _user !== this.props.userEmail
+                        )[0]
+                      }
+                      secondary={
+                        <React.Fragment>
+                          <Typography component="span" color="textPrimary">
+                            {_chat.messages[
+                              _chat.messages.length - 1
+                            ].message.substring(0, 30)}
+                          </Typography>
+                        </React.Fragment>
+                      }
+                    />
+                  </ListItem>
+                  <Divider />
+                </div>
+              );
+            })}
+          </List>
+        </main>
+      );
+    } else {
+      return (
+        <main className={classes.root}>
+          <Button
+            variant="contained"
+            fullWidth
+            color="primary"
+            onClick={this.newChat}
+            className={classes.newChatBtn}
+          >
+            New Message
+          </Button>
+          <List />
+        </main>
+      );
+    }
   }
+
+  newChat = () => {
+    console.log("New Chat Click");
+  };
+
+  selectChat = index => {
+    console.log("Select Chat", index);
+  };
 }
 
 export default withStyles(styles)(ChatListComponent);
