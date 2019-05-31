@@ -16,7 +16,7 @@ class DashboardCompoent extends React.Component {
       chats: []
     };
   }
-
+  //testing
   render() {
     const { classes } = this.props;
 
