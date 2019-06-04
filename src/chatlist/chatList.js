@@ -18,13 +18,13 @@ class ChatListComponent extends React.Component {
 
     if (this.props.chats.length > 0) {
       return (
-        <main className={classes.root}>
+        <div className={classes.root}>
           <Button
             variant="contained"
             fullWidth
             color="primary"
-            className={classes.newChatBtn}
             onClick={this.newChat}
+            className={classes.newChatBtn}
           >
             New Message
           </Button>
@@ -58,7 +58,7 @@ class ChatListComponent extends React.Component {
                           <Typography component="span" color="textPrimary">
                             {_chat.messages[
                               _chat.messages.length - 1
-                            ].message.substring(0, 30)}
+                            ].message.substring(0, 30) + " ..."}
                           </Typography>
                         </React.Fragment>
                       }
@@ -77,11 +77,11 @@ class ChatListComponent extends React.Component {
               );
             })}
           </List>
-        </main>
+        </div>
       );
     } else {
       return (
-        <main className={classes.root}>
+        <div className={classes.root}>
           <Button
             variant="contained"
             fullWidth
@@ -92,22 +92,14 @@ class ChatListComponent extends React.Component {
             New Message
           </Button>
           <List />
-        </main>
+        </div>
       );
     }
   }
-
-  newChat = () => {
-    this.props.newChatBtnFn();
-  };
-  u;
-
-  selectChat = index => {
-    this.props.selectChatFn(index);
-  };
-
   userIsSender = chat =>
     chat.messages[chat.messages.length - 1].sender === this.props.userEmail;
+  newChat = () => this.props.newChatBtnFn();
+  selectChat = index => this.props.selectChatFn(index);
 }
 
 export default withStyles(styles)(ChatListComponent);
