@@ -12,12 +12,12 @@ require("firebase/firestore");
 
 firebase.initializeApp({
   apiKey: process.env.REACT_APP_FIREBASE_API,
-  authDomain: "chatty-box-c6eed.firebaseapp.com",
-  databaseURL: "https://chatty-box-c6eed.firebaseio.com",
-  projectId: "chatty-box-c6eed",
-  storageBucket: "chatty-box-c6eed.appspot.com",
-  messagingSenderId: "936679149448",
-  appId: "1:936679149448:web:58c79891e332e193"
+  authDomain: process.env.REACT_APP_AUTH_DOMAIN,
+  databaseURL: process.env.REACT_APP_DATABASE_URL,
+  projectId: process.env.REACT_APP_PID,
+  storageBucket: process.env.REACT_APP_BUCKET,
+  messagingSenderId: process.env.REACT_APP_MSGID,
+  appId: process.env.REACT_APP_AID
 });
 
 const routing = (
