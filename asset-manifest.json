@@ -1,0 +1,15 @@
+{
+  "files": {
+    "main.css": "/chattybox/static/css/main.34de6062.chunk.css",
+    "main.js": "/chattybox/static/js/main.dbd9b211.chunk.js",
+    "main.js.map": "/chattybox/static/js/main.dbd9b211.chunk.js.map",
+    "runtime~main.js": "/chattybox/static/js/runtime~main.cd5edbdd.js",
+    "runtime~main.js.map": "/chattybox/static/js/runtime~main.cd5edbdd.js.map",
+    "static/js/2.988c469d.chunk.js": "/chattybox/static/js/2.988c469d.chunk.js",
+    "static/js/2.988c469d.chunk.js.map": "/chattybox/static/js/2.988c469d.chunk.js.map",
+    "index.html": "/chattybox/index.html",
+    "precache-manifest.38fc4186fec5dd2d6b6d989ca880467a.js": "/chattybox/precache-manifest.38fc4186fec5dd2d6b6d989ca880467a.js",
+    "service-worker.js": "/chattybox/service-worker.js",
+    "static/css/main.34de6062.chunk.css.map": "/chattybox/static/css/main.34de6062.chunk.css.map"
+  }
+}
