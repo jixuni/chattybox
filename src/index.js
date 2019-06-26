@@ -1,11 +1,11 @@
 import React from "react";
 import ReactDOM from "react-dom";
 import "./index.css";
-import * as serviceWorker from "./serviceWorker";
 import { Route, BrowserRouter as Router } from "react-router-dom";
-import LoginComponent from "./login/login";
-import SignupComponent from "./signup/signup";
-import DashboardComponent from "./dashboard/dashboard";
+import * as serviceWorker from "./serviceWorker";
+import LoginComponent from "./Login/login";
+import SignupComponent from "./Signup/signup";
+import DashboardComponent from "./Dashboard/dashboard";
 
 const firebase = require("firebase");
 require("firebase/firestore");

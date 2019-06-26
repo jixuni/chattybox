@@ -1,17 +1,17 @@
-import React from "react";
 import { Link } from "react-router-dom";
+import React from "react";
+import styles from "./styles";
 import FormControl from "@material-ui/core/FormControl";
 import InputLabel from "@material-ui/core/InputLabel";
 import Input from "@material-ui/core/Input";
 import Paper from "@material-ui/core/Paper";
 import withStyles from "@material-ui/core/styles/withStyles";
 import CssBaseline from "@material-ui/core/CssBaseline";
-import Button from "@material-ui/core/Button";
 import Typography from "@material-ui/core/Typography";
-import styles from "./styles";
+import Button from "@material-ui/core/Button";
 const firebase = require("firebase");
 
-class SignupCompoent extends React.Component {
+class SignupComponent extends React.Component {
   constructor() {
     super();
     this.state = {
@@ -32,7 +32,6 @@ class SignupCompoent extends React.Component {
           <Typography component="h1" variant="h5">
             Sign Up!
           </Typography>
-
           <form onSubmit={e => this.submitSignup(e)} className={classes.form}>
             <FormControl required fullWidth margin="normal">
               <InputLabel htmlFor="signup-email-input">
@@ -40,8 +39,8 @@ class SignupCompoent extends React.Component {
               </InputLabel>
               <Input
                 autoComplete="email"
-                onChange={e => this.userTyping("email", e)}
                 autoFocus
+                onChange={e => this.userTyping("email", e)}
                 id="signup-email-input"
               />
             </FormControl>
@@ -84,13 +83,7 @@ class SignupCompoent extends React.Component {
               {this.state.signupError}
             </Typography>
           ) : null}
-          <Typography
-            component="h5"
-            variant="h6"
-            className={classes.hasAccountHeader}
-          >
-            Already Have An Account?
-          </Typography>
+          <h5 className={classes.hasAccountHeader}>Already Have An Account?</h5>
           <Link className={classes.logInLink} to="/login">
             Log In!
           </Link>
@@ -99,20 +92,18 @@ class SignupCompoent extends React.Component {
     );
   }
 
-  formIsValid = () => this.state.password === this.state.passwordConfirmation;
-
-  userTyping = (type, e) => {
-    switch (type) {
+  userTyping = (whichInput, event) => {
+    switch (whichInput) {
       case "email":
-        this.setState({ email: e.target.value });
+        this.setState({ email: event.target.value });
         break;
 
       case "password":
-        this.setState({ password: e.target.value });
+        this.setState({ password: event.target.value });
         break;
 
       case "passwordConfirmation":
-        this.setState({ passwordConfirmation: e.target.value });
+        this.setState({ passwordConfirmation: event.target.value });
         break;
 
       default:
@@ -120,10 +111,13 @@ class SignupCompoent extends React.Component {
     }
   };
 
+  formIsValid = () => this.state.password === this.state.passwordConfirmation;
+
   submitSignup = e => {
-    e.preventDefault();
+    e.preventDefault(); // This is to prevent the automatic refreshing of the page on submit.
+
     if (!this.formIsValid()) {
-      this.setState({ signupError: "Passwords do not match!" });
+      this.setState({ signupError: "Passwords do not match" });
       return;
     }
 
@@ -133,28 +127,31 @@ class SignupCompoent extends React.Component {
       .then(
         authRes => {
           const userObj = {
-            email: authRes.user.email
+            email: authRes.user.email,
+            friends: [],
+            messages: []
           };
           firebase
             .firestore()
-            .collection("user")
+            .collection("users")
             .doc(this.state.email)
             .set(userObj)
             .then(
               () => {
                 this.props.history.push("/dashboard");
               },
-              dbError => {
-                console.log(dbError);
+              dbErr => {
+                console.log("Failed to add user to the database: ", dbErr);
+                this.setState({ signupError: "Failed to add user" });
               }
             );
         },
         authErr => {
-          console.log(authErr);
+          console.log("Failed to create user: ", authErr);
           this.setState({ signupError: "Failed to add user" });
         }
       );
   };
 }
 
-export default withStyles(styles)(SignupCompoent);
+export default withStyles(styles)(SignupComponent);

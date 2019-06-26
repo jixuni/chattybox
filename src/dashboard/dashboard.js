@@ -1,8 +1,8 @@
 import React from "react";
-import NewChatComponent from "../newchat/NewChat";
-import ChatListComponent from "../chatlist/chatList";
-import ChatViewComponent from "../chatview/chatView";
-import ChatTextBoxComponent from "../chattextbox/chatTextBox";
+import NewChatComponent from "../NewChat/newChat";
+import ChatListComponent from "../ChatList/chatList";
+import ChatViewComponent from "../ChatView/chatView";
+import ChatTextBoxComponent from "../ChatTextBox/chatTextBox";
 import styles from "./styles";
 import { Button, withStyles } from "@material-ui/core";
 const firebase = require("firebase");
@@ -84,8 +84,6 @@ class DashboardComponent extends React.Component {
       });
   };
 
-  // Always in alphabetical order:
-  // 'user1:user2'
   buildDocKey = friend => [this.state.email, friend].sort().join(":");
 
   newChatBtnClicked = () =>
