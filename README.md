@@ -17,6 +17,10 @@ Chrome or Mozilla, have not tested any other browsers.
 
 It is currently deploy on heroku [chattybox](https://chattymate009.herokuapp.com/login)
 
+## Known Issues
+
+Interesting point when I was trying to deploy it to Heroku, the environmental variable cannot have "-" in them. Took me a while to figure it out. The process.env needs to be parse.
+
 ## Built With
 
 - [React](https://reactjs.org/) - JavaScript frame work
