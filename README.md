@@ -1,6 +1,6 @@
 ## ChattyBox
 
-![ScreenShot](https://github.com/jixuni/Chatty/chattybox/blob/master/public/screenshot.png)
+![ScreenShot](https://github.com/jixuni/chattybox/blob/master/public/screenshot.png)
 
 ChattyBox is a chat app that communicates in real time using firebase database, without the use of socket.io
 
@@ -16,6 +16,10 @@ Chrome or Mozilla, have not tested any other browsers.
 ## Deployment
 
 It is currently deploy on heroku [chattybox](https://chattymate009.herokuapp.com/login)
+
+## Known Issues
+
+Interesting point when I was trying to deploy it to Heroku, the environmental variable cannot have "-" in them. Took me a while to figure it out. The process.env needs to be parse.
 
 ## Built With
 
