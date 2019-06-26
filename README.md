@@ -1,6 +1,6 @@
 ## ChattyBox
 
-![ScreenShot](https://github.com/jixuni/Chatty/chattybox/blob/master/public/screenshot.png)
+![ScreenShot](https://github.com/jixuni/chattybox/blob/master/public/screenshot.png)
 
 ChattyBox is a chat app that communicates in real time using firebase database, without the use of socket.io
 
